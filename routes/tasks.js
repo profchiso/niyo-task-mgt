@@ -6,13 +6,14 @@ const {
   updateTask,
   deleteTask,
 } = require("../controllers/task");
+const { authenticate } = require("../utils");
 
 const taskRouter = express.Router();
 
-taskRouter.get("/", getAllTasks);
-taskRouter.get("/:id", getATask);
-taskRouter.post("/", createTask);
-taskRouter.patch("/:id", updateTask);
-taskRouter.delete("/:id", deleteTask);
+taskRouter.get("/", authenticate, getAllTasks);
+taskRouter.get("/:id", authenticate, getATask);
+taskRouter.post("/", authenticate, createTask);
+taskRouter.patch("/:id", authenticate, updateTask);
+taskRouter.delete("/:id", authenticate, deleteTask);
 
 module.exports = { taskRouter };
