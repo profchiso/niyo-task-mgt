@@ -14,7 +14,14 @@ const { User } = require("../models/user");
 
 exports.getUsers = async (req, res) => {
   try {
-    getAll(req, res, User, ["password", "__v"]);
+    getAll(
+      req,
+      res,
+      User,
+      ["password", "__v"],
+      { required: false },
+      "Users Fetched successfully"
+    );
   } catch (error) {
     console.log(error);
     return res.status(STATUS_CODES.BAD_REQUEST).json({
@@ -26,7 +33,7 @@ exports.getUsers = async (req, res) => {
 };
 exports.getAUser = async (req, res) => {
   try {
-    getOne(req, res, User);
+    getOne(req, res, User, ["password", "__v"]);
   } catch (error) {
     console.log(error);
     return res.status(STATUS_CODES.BAD_REQUEST).json({
@@ -72,11 +79,6 @@ exports.createUser = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.SERVER_ERROR).json({
-      statusCode: STATUS_CODES.SERVER_ERROR,
-      responseText: RESPONSE_TEXT.FAIL,
-      errors: [{ msg: error.message || "something went wrong" }],
-    });
   }
 };
 
@@ -125,10 +127,5 @@ exports.login = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.SERVER_ERROR).json({
-      statusCode: STATUS_CODES.SERVER_ERROR,
-      responseText: RESPONSE_TEXT.FAIL,
-      errors: [{ msg: error.message || "something went wrong" }],
-    });
   }
 };

@@ -203,7 +203,7 @@ exports.deleteDocument = async (
         errors: [{ msg: "Resource not found" }],
       });
     }
-    await model.findByIdAndRemove(req.params.id);
+    await model.findByIdAndDelete(req.params.id);
     res.status(STATUS_CODES.OK).json({
       statusCode: STATUS_CODES.OK,
       responseText: RESPONSE_TEXT.SUCCESS,
@@ -232,6 +232,8 @@ exports.createDocument = async (
     const createdResource = await model.create(req.body);
 
     let resource = { ...createdResource._doc };
+
+    delete resource.password;
 
     return { msg, resource, extra };
   } catch (error) {

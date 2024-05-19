@@ -6,6 +6,7 @@ const {
   createDocument,
   STATUS_CODES,
   RESPONSE_TEXT,
+  validationCheck,
 } = require("../utils");
 
 const { Task } = require("../models/task");
@@ -37,6 +38,7 @@ exports.getATask = async (req, res) => {
 
 exports.createTask = async (req, res) => {
   try {
+    await validationCheck(req, res);
     req.body.user = req.user.id;
     const created = await createDocument(
       req,
@@ -52,11 +54,6 @@ exports.createTask = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.SERVER_ERROR).json({
-      statusCode: STATUS_CODES.SERVER_ERROR,
-      responseText: RESPONSE_TEXT.FAIL,
-      errors: [{ msg: error.message || "something went wrong" }],
-    });
   }
 };
 
@@ -74,11 +71,6 @@ exports.updateTask = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.SERVER_ERROR).json({
-      statusCode: STATUS_CODES.SERVER_ERROR,
-      responseText: RESPONSE_TEXT.FAIL,
-      errors: [{ msg: error.message || "something went wrong" }],
-    });
   }
 };
 

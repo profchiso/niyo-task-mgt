@@ -42,7 +42,7 @@ app.get("/api/v1", (req, res) => {
     statusCode: 200,
     statusText: "SUCCESS",
     data: {
-      msg: `Welcome   ${req.ip}`,
+      msg: `Welcome   ${req.ip} to Niyo task management API`,
       resource: {},
     },
   });
