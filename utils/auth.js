@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { User } = require("../models/users");
+const { User } = require("../models/user");
 const { STATUS_CODES, RESPONSE_TEXT } = require("./response");
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -28,9 +28,7 @@ exports.authenticate = async (req, res, next) => {
     const decodedToken = await jwt.verify(accessToken, JWT_SECRET);
 
     //check if user exist   just to be sure the user had not bern deleted
-    const user = await User.findById(decodedToken.user.id).select(
-      "-password -passwordResetCode "
-    );
+    const user = await User.findById(decodedToken.user.id).select("-password");
     if (!user) {
       return res.status(STATUS_CODES.UNAUTHORIZED).json({
         statusCode: STATUS_CODES.UNAUTHORIZED,
@@ -60,47 +58,4 @@ exports.authenticate = async (req, res, next) => {
       errors: [{ msg: "Invalid accessToken" }],
     });
   }
-};
-
-//only for rendered pages
-exports.isLoggedIn = async (req, res, next) => {
-  let accessToken;
-
-  if (req.cookies.accessToken) {
-    try {
-      accessToken = req.cookies.accessToken;
-
-      //decode the access token
-      const decodedToken = await jwt.verify(accessToken, JWT_SECRET);
-
-      //check if user exist   just to be sure the user had not bern deleted
-      const user = await User.findById(decodedToken.user.id);
-      if (!user) {
-        return next();
-      }
-      //sender a variable to the rendered template
-      res.locals.user = user;
-      req.user = user;
-
-      return next();
-    } catch (error) {
-      return next();
-    }
-  }
-  next();
-};
-
-exports.authorize = (userType) => {
-  return (req, res, next) => {
-    if (!userType.includes(req.user.userType)) {
-      return res.status(STATUS_CODES.FOBIDDEN).json({
-        statusCode: STATUS_CODES.FORBIDDEN,
-        responseText: RESPONSE_TEXT.FAIL,
-        errors: [
-          { msg: "Sorry you are forbidden to carry out this operation" },
-        ],
-      });
-    }
-    next();
-  };
 };

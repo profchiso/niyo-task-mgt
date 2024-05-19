@@ -8,6 +8,7 @@ const {
 } = require("./crudOperations");
 const { STATUS_CODES, RESPONSE_TEXT } = require("./response");
 const { TASK_STATUS } = require("./taskStatus");
+const { authenticate } = require("./auth");
 
 module.exports = {
   connectToDb,
@@ -19,4 +20,5 @@ module.exports = {
   STATUS_CODES,
   RESPONSE_TEXT,
   TASK_STATUS,
+  authenticate,
 };
