@@ -8,7 +8,7 @@ This project is about task management. users will be able to create account, log
 
 # Folder Structure
 
-1. **controllers** : this contains the business logic for the application.
+1. **controllers** : This contains the business logic for the application.
 2. **models** : This contains models or structure of the application resources like User and Task
 3. **routes** : This contains files that handles all the api routes.
 4. **utils** : This contains utility logics like some of which are reused in some part of the applications.
@@ -26,6 +26,6 @@ This project is about task management. users will be able to create account, log
 
 - The documentation on how to use the api is **[here](https://documenter.getpostman.com/view/7669287/2sA3QmCuJx)**
 
-- **Features**: Users can Create, view, update and delete tasks. create user,view users, and user login. user cannot delete a task that does not belong to them
+- **Features**: Users can Create, view, update and delete tasks. create user,view users, and user login. user cannot delete or update a task that does not belong to them
 
 - **Technologies** Nodejs, express and MongoDB alongside with relevant NPM libraries

@@ -8,7 +8,6 @@ const {
 } = require("../controllers/task");
 const { authenticate } = require("../utils");
 const { TaskCreationValidation } = require("../validations/task");
-TaskCreationValidation;
 
 const taskRouter = express.Router();
 

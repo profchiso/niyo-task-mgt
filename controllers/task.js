@@ -16,11 +16,6 @@ exports.getAllTasks = async (req, res) => {
     getAll(req, res, Task);
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.SERVER_ERROR).json({
-      statusCode: STATUS_CODES.SERVER_ERROR,
-      responseText: RESPONSE_TEXT.FAIL,
-      errors: [{ msg: error.message || "something went wrong" }],
-    });
   }
 };
 exports.getATask = async (req, res) => {
@@ -28,11 +23,6 @@ exports.getATask = async (req, res) => {
     getOne(req, res, Task);
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.SERVER_ERROR).json({
-      statusCode: STATUS_CODES.SERVER_ERROR,
-      responseText: RESPONSE_TEXT.FAIL,
-      errors: [{ msg: error.message || "something went wrong" }],
-    });
   }
 };
 
@@ -101,10 +91,5 @@ exports.deleteTask = async (req, res) => {
     deleteDocument(req, res, Task, "Task deleted successfully");
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.BAD_REQUEST).json({
-      statusCode: STATUS_CODES.BAD_REQUEST,
-      responseText: RESPONSE_TEXT.FAIL,
-      errors: [{ msg: error.message || "something went wrong" }],
-    });
   }
 };

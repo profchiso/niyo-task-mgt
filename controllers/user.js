@@ -24,11 +24,6 @@ exports.getUsers = async (req, res) => {
     );
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.BAD_REQUEST).json({
-      statusCode: STATUS_CODES.BAD_REQUEST,
-      responseText: RESPONSE_TEXT.FAIL,
-      errors: [{ msg: error.message || "something went wrong" }],
-    });
   }
 };
 exports.getAUser = async (req, res) => {
@@ -36,11 +31,6 @@ exports.getAUser = async (req, res) => {
     getOne(req, res, User, ["password", "__v"]);
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.BAD_REQUEST).json({
-      statusCode: STATUS_CODES.BAD_REQUEST,
-      responseText: RESPONSE_TEXT.FAIL,
-      errors: [{ msg: error.message || "something went wrong" }],
-    });
   }
 };
 

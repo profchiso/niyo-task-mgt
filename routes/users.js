@@ -12,7 +12,6 @@ const {
 } = require("../validations/user");
 
 const userRouter = express.Router();
-
 userRouter.get("/", authenticate, getUsers);
 userRouter.get("/:id", authenticate, getAUser);
 userRouter.post("/", UserCreationValidation, createUser);
