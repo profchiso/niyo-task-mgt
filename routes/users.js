@@ -6,12 +6,16 @@ const {
   login,
 } = require("../controllers/user");
 const { authenticate } = require("../utils");
+const {
+  UserCreationValidation,
+  UserLoginValidation,
+} = require("../validations/user");
 
 const userRouter = express.Router();
 
 userRouter.get("/", authenticate, getUsers);
 userRouter.get("/:id", authenticate, getAUser);
-userRouter.post("/", createUser);
-userRouter.post("/login", login);
+userRouter.post("/", UserCreationValidation, createUser);
+userRouter.post("/login", UserLoginValidation, login);
 
 module.exports = { userRouter };
