@@ -59,6 +59,17 @@ exports.createTask = async (req, res) => {
 
 exports.updateTask = async (req, res) => {
   try {
+    const isUserTask = await Task.findOne({
+      _id: req.params.id,
+      user: req.user.id,
+    });
+    if (!isUserTask) {
+      return res.status(STATUS_CODES.BAD_REQUEST).json({
+        statusCode: STATUS_CODES.BAD_REQUEST,
+        responseText: RESPONSE_TEXT.FAIL,
+        errors: [{ msg: "You can only update a task that belongs to you" }],
+      });
+    }
     const updatedTask = await updateDocument(req, res, Task);
     res.status(STATUS_CODES.OK).json({
       statusCode: STATUS_CODES.OK,
@@ -76,6 +87,17 @@ exports.updateTask = async (req, res) => {
 
 exports.deleteTask = async (req, res) => {
   try {
+    const isUserTask = await Task.findOne({
+      _id: req.params.id,
+      user: req.user.id,
+    });
+    if (!isUserTask) {
+      return res.status(STATUS_CODES.BAD_REQUEST).json({
+        statusCode: STATUS_CODES.BAD_REQUEST,
+        responseText: RESPONSE_TEXT.FAIL,
+        errors: [{ msg: "You can only update a task that belongs to you" }],
+      });
+    }
     deleteDocument(req, res, Task, "Task deleted successfully");
   } catch (error) {
     console.log(error);
