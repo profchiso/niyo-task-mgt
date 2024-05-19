@@ -17,12 +17,12 @@ const app = express();
 app.enable("trust proxy");
 
 //middlewares
-
 app.use(express.json({ limit: "100mb" })); //middleware for body-paser
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors()); //middleware to allow cross origin resource sharing
 
+//middleware to  log request details
 app.use((req, res, next) => {
   let payloadSize = req.headers["content-length"];
   console.log(`[Request Payload Size: ${payloadSize}]`);
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//routes
+//api routes
 app.get("/api/v1", (req, res) => {
   res.json({
     statusCode: 200,
@@ -47,8 +47,6 @@ app.get("/api/v1", (req, res) => {
     },
   });
 });
-
-//api routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/tasks", taskRouter);
 
