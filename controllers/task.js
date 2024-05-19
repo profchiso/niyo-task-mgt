@@ -15,8 +15,8 @@ exports.getAllTasks = async (req, res) => {
     getAll(req, res, Task);
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.BAD_REQUEST).json({
-      statusCode: STATUS_CODES.BAD_REQUEST,
+    return res.status(STATUS_CODES.SERVER_ERROR).json({
+      statusCode: STATUS_CODES.SERVER_ERROR,
       responseText: RESPONSE_TEXT.FAIL,
       errors: [{ msg: error.message || "something went wrong" }],
     });
@@ -27,8 +27,8 @@ exports.getATask = async (req, res) => {
     getOne(req, res, Task);
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.BAD_REQUEST).json({
-      statusCode: STATUS_CODES.BAD_REQUEST,
+    return res.status(STATUS_CODES.SERVER_ERROR).json({
+      statusCode: STATUS_CODES.SERVER_ERROR,
       responseText: RESPONSE_TEXT.FAIL,
       errors: [{ msg: error.message || "something went wrong" }],
     });
@@ -37,19 +37,45 @@ exports.getATask = async (req, res) => {
 
 exports.createTask = async (req, res) => {
   try {
-    createDocument(req, res, Task);
+    req.body.user = req.user.id;
+    const created = await createDocument(
+      req,
+      res,
+      Task,
+      {},
+      "Task created successfully"
+    );
+    res.status(STATUS_CODES.CREATED).json({
+      statusCode: STATUS_CODES.CREATED,
+      responseText: RESPONSE_TEXT.SUCCESS,
+      data: created,
+    });
   } catch (error) {
     console.log(error);
+    return res.status(STATUS_CODES.SERVER_ERROR).json({
+      statusCode: STATUS_CODES.SERVER_ERROR,
+      responseText: RESPONSE_TEXT.FAIL,
+      errors: [{ msg: error.message || "something went wrong" }],
+    });
   }
 };
 
 exports.updateTask = async (req, res) => {
   try {
-    updateDocument(req, res, Task);
+    const updatedTask = await updateDocument(req, res, Task);
+    res.status(STATUS_CODES.OK).json({
+      statusCode: STATUS_CODES.OK,
+      responseText: RESPONSE_TEXT.SUCCESS,
+      data: {
+        msg: `Task updated successfully`,
+        resource: updatedTask,
+        extra: {},
+      },
+    });
   } catch (error) {
     console.log(error);
-    return res.status(STATUS_CODES.BAD_REQUEST).json({
-      statusCode: STATUS_CODES.BAD_REQUEST,
+    return res.status(STATUS_CODES.SERVER_ERROR).json({
+      statusCode: STATUS_CODES.SERVER_ERROR,
       responseText: RESPONSE_TEXT.FAIL,
       errors: [{ msg: error.message || "something went wrong" }],
     });
@@ -58,7 +84,7 @@ exports.updateTask = async (req, res) => {
 
 exports.deleteTask = async (req, res) => {
   try {
-    deleteDocument(req, res, Task);
+    deleteDocument(req, res, Task, "Task deleted successfully");
   } catch (error) {
     console.log(error);
     return res.status(STATUS_CODES.BAD_REQUEST).json({

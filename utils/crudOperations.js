@@ -1,7 +1,6 @@
 const { isValidObjectId } = require("mongoose");
 const { excludedQueryFields } = require("./excludedFields");
 const { RESPONSE_TEXT, STATUS_CODES } = require("./response");
-const extra = {};
 exports.getAll = async (
   req,
   res,

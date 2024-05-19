@@ -7,12 +7,14 @@ const {
   deleteTask,
 } = require("../controllers/task");
 const { authenticate } = require("../utils");
+const { TaskCreationValidation } = require("../validations/task");
+TaskCreationValidation;
 
 const taskRouter = express.Router();
 
 taskRouter.get("/", authenticate, getAllTasks);
 taskRouter.get("/:id", authenticate, getATask);
-taskRouter.post("/", authenticate, createTask);
+taskRouter.post("/", TaskCreationValidation, authenticate, createTask);
 taskRouter.patch("/:id", authenticate, updateTask);
 taskRouter.delete("/:id", authenticate, deleteTask);
 
