@@ -1,14 +1,18 @@
 const express = require("express");
 const {
-  getAllCourse,
-  getACourse,
-  createCourse,
-} = require("../controllers/course");
+  getAllTasks,
+  getATask,
+  createTask,
+  updateTask,
+  deleteTask,
+} = require("../controllers/task");
 
 const taskRouter = express.Router();
 
-taskRouter.get("/", getAllCourse);
-taskRouter.get("/:courseId", getACourse);
-taskRouter.post("/", createCourse);
+taskRouter.get("/", getAllTasks);
+taskRouter.get("/:id", getATask);
+taskRouter.post("/", createTask);
+taskRouter.patch("/:id", updateTask);
+taskRouter.delete("/:id", deleteTask);
 
 module.exports = { taskRouter };

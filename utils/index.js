@@ -9,6 +9,7 @@ const {
 const { STATUS_CODES, RESPONSE_TEXT } = require("./response");
 const { TASK_STATUS } = require("./taskStatus");
 const { authenticate } = require("./auth");
+const { hashUserPassword, decryptPassword } = require("./passwordManipulation");
 
 module.exports = {
   connectToDb,
@@ -21,4 +22,6 @@ module.exports = {
   RESPONSE_TEXT,
   TASK_STATUS,
   authenticate,
+  hashUserPassword,
+  decryptPassword,
 };
