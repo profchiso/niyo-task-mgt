@@ -16,8 +16,8 @@ This project is about task management. users will be able to create account, log
 
 ## How to set up the application locally
 
-1. Clone this repository using the command `git clone https://github.com/profchiso/niyo-task-mgt.git`
-2. Change directory to the folder using the command `cd niyo-task-mgt`
+1. Clone the repository using the command `git clone https://github.com/profchiso/niyo-task-mgt.git`
+2. Change directory to the cloned app using the command `cd niyo-task-mgt`
 3. Install all dependencies using the command `npm install`
 4. Set the environment variables as found **[here](https://github.com/profchiso/niyo-task-mgt/blob/dev/.env.example.txt)**
 5. Run the application using the command `npm start` or `npm run dev` to run the application using `nodemon`
